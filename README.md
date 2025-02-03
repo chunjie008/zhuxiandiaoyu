@@ -6,8 +6,11 @@
 依赖如下
 
 pip install opencv-python
-pip install pygetwindow.
+
+pip install pygetwindow
+
 pip install pyautogui
+
 pip install --upgrade Pillow
 
 管理员权限启动脚本
