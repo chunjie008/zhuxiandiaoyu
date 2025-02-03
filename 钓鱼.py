@@ -49,6 +49,8 @@ else:
 
         if max_val_diaoyu >= threshold and not space:
             pyautogui.keyDown('space')
+            interval = random.uniform(2, 3)
+            time.sleep(interval)
             space = True
             print("钓鱼")
 
