@@ -5,6 +5,12 @@ import time
 import numpy as np
 import random
 
+#  pip install opencv-python
+#  pip install pygetwindow.
+#  pip install pyautogui
+#  pip install --upgrade Pillow
+#  pyinstaller --onefile 钓鱼.py
+
 # 获取窗口
 windows = gw.getWindowsWithTitle('ZhuxianClient')
 space = False
@@ -58,15 +64,14 @@ else:
             pyautogui.keyUp('space')
             interval = random.uniform(0.01, 0.03)
             time.sleep(interval)
-            for i in range(3):
+            for i in range(10):
                 pyautogui.keyDown('space')
                 interval = random.uniform(0.01, 0.03)
                 time.sleep(interval)
                 pyautogui.keyUp('space')
                 interval = random.uniform(0.01, 0.03)
                 time.sleep(interval)
-            pyautogui.keyDown('space')
-            space = True
+            space = False
             print("放鱼 ")
 
         if max_val_diaoyu < threshold and not space:
@@ -84,7 +89,7 @@ else:
                 # 模拟释放空格键
                 pyautogui.keyUp('space')
                 print("找到抛杆模板，按下空格键")
-                pyautogui.sleep(5)
+                pyautogui.sleep(3)
 
             # 起杆
             if max_val_qigan >= threshold:
