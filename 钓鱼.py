@@ -7,10 +7,12 @@ import random
 
 # 获取窗口
 windows = gw.getWindowsWithTitle('ZhuxianClient')
-space = False;
+space = False
 if not windows:
     print("窗口未找到")
 else:
+    print("窗口已找到")
+    print("百款手游交流 qq群:932860431")
     window = windows[0]
 
     # 确保窗口是激活的
@@ -30,7 +32,7 @@ else:
     w_diaoyu, h_diaoyu = template_diaoyu.shape[1:]
 
     # 设置匹配阈值
-    threshold = 0.9
+    threshold = 0.85
 
     # 捕获窗口内容
     while True:
@@ -43,20 +45,28 @@ else:
 
         # 进行模板匹配
 
-        res_diaoyu = cv2.matchTemplate(screenshot, template_diaoyu, cv2.TM_CCOEFF_NORMED)
+        res_diaoyu = cv2.matchTemplate(screenshot, template_diaoyu,  cv2.TM_CCOEFF_NORMED)
 
         min_val_diaoyu, max_val_diaoyu, min_loc_diaoyu, max_loc_diaoyu = cv2.minMaxLoc(res_diaoyu)
 
         if max_val_diaoyu >= threshold and not space:
             pyautogui.keyDown('space')
-            interval = random.uniform(2, 3)
-            time.sleep(interval)
             space = True
             print("钓鱼")
 
         if max_val_diaoyu < threshold and space:
             pyautogui.keyUp('space')
-            space = False
+            interval = random.uniform(0.01, 0.03)
+            time.sleep(interval)
+            for i in range(3):
+                pyautogui.keyDown('space')
+                interval = random.uniform(0.01, 0.03)
+                time.sleep(interval)
+                pyautogui.keyUp('space')
+                interval = random.uniform(0.01, 0.03)
+                time.sleep(interval)
+            pyautogui.keyDown('space')
+            space = True
             print("放鱼 ")
 
         if max_val_diaoyu < threshold and not space:
@@ -66,22 +76,21 @@ else:
             min_val_qigan, max_val_qigan, min_loc_qigan, max_loc_qigan = cv2.minMaxLoc(res_qigan)
             # 抛杆
             if max_val_paogan >= threshold:
-                interval = random.uniform(0.01, 0.05)
+
                 # 模拟按下空格键
                 pyautogui.keyDown('space')
-                # 设置按下和释放之间的间隔时间（例如 1 秒）
+                interval = random.uniform(0.01, 0.03)
                 pyautogui.sleep(interval)
                 # 模拟释放空格键
                 pyautogui.keyUp('space')
                 print("找到抛杆模板，按下空格键")
-                pyautogui.sleep(3)
+                pyautogui.sleep(5)
 
             # 起杆
             if max_val_qigan >= threshold:
-                interval = random.uniform(0.01, 0.05)
+                interval = random.uniform(0.01, 0.03)
                 # 模拟按下空格键
                 pyautogui.keyDown('space')
-                # 设置按下和释放之间的间隔时间（例如 1 秒）
                 pyautogui.sleep(interval)
                 # 模拟释放空格键
                 pyautogui.keyUp('space')
